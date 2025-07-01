@@ -21,9 +21,9 @@ The project uses React and TailwindCSS for the frontend, and FastAPI with Whispe
    git clone <repo-url>
    cd videologs
    ```
-2. Install backend dependencies:
+2. Install backend dependencies (including testing tools):
    ```sh
-   pip install -r backend/requirements.txt
+   pip install -r backend/requirements-dev.txt
    ```
 3. Start the FastAPI server in development mode (runs at `http://localhost:8000`):
    ```sh
@@ -74,11 +74,10 @@ curl http://localhost:8000/logs
 
 
 ## Testing the Log API
-To verify the API works as expected you can run the included `pytest` suite. Ensure the backend
-dependencies and the `httpx` testing library are installed, then execute:
+After installing the development requirements you can run the included `pytest` suite:
 
 ```sh
-pip install pytest 'httpx<0.28'
+pip install -r backend/requirements-dev.txt
 pytest -q
 ```
 The tests create a log entry using the API and confirm it is returned when listing logs.
