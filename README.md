@@ -60,6 +60,7 @@ More documentation will be added as the project evolves.
 Once the server is running, you can create logs with a POST request and list them with a GET request.
 The `curl` commands below work in PowerShell as well (curl is an alias for `Invoke-WebRequest`).
 
+
 Create a log entry:
 ```sh
 curl -X POST -H "Content-Type: application/json" \
@@ -70,6 +71,7 @@ List log entries:
 ```sh
 curl http://localhost:8000/logs
 ```
+
 
 ## Testing the Log API
 To verify the API works as expected you can run the included `pytest` suite. Ensure the backend
