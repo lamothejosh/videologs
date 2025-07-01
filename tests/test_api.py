@@ -1,6 +1,9 @@
 import sys, os; sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from fastapi.testclient import TestClient
+import httpx
+import asyncio
+import pytest
 from backend.main import app, log_entries
 
 client = TestClient(app)
@@ -25,4 +28,26 @@ def test_create_and_list_logs():
     logs = r2.json()
     assert len(logs) == 1
     assert logs[0]['content'] == payload['content']
+
+
+def test_cors_headers():
+    resp = client.get('/', headers={'Origin': 'http://localhost:3000'})
+    assert resp.status_code == 200
+    assert resp.headers.get('access-control-allow-origin') == 'http://localhost:3000'
+
+
+@pytest.mark.asyncio
+async def test_unique_ids_concurrent_posts():
+    log_entries.clear()
+
+    async with httpx.AsyncClient(app=app, base_url="http://test") as async_client:
+        async def post_entry(i):
+            payload = {"content": f"entry{i}", "tags": ["t"]}
+            resp = await async_client.post('/logs', json=payload)
+            return resp.json()['id']
+
+        ids = await asyncio.gather(*(post_entry(i) for i in range(5)))
+
+    assert ids == sorted(ids)
+    assert len(set(ids)) == 5
 
