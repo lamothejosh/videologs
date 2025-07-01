@@ -41,8 +41,7 @@ async def create_log(entry: LogCreate):
             tags=entry.tags,
             timestamp=datetime.now(timezone.utc),
         )
-        next_id += 1
-        log_entries.append(log)
+
     return log
 
 @app.get("/logs", response_model=List[LogEntry])
