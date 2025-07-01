@@ -21,11 +21,15 @@ The project uses React and TailwindCSS for the frontend, and FastAPI with Whispe
    git clone <repo-url>
    cd videologs
    ```
-2. Create a new branch for your work:
+2. Install backend dependencies:
+   ```sh
+   pip install -r backend/requirements.txt
+   ```
+3. Create a new branch for your work:
    ```sh
    git checkout -b my-feature
    ```
-3. Make changes and commit:
+4. Make changes and commit:
    ```sh
    git add .
    git commit -m "Describe your changes"
