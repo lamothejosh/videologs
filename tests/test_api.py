@@ -1,7 +1,7 @@
 import sys, os; sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from fastapi.testclient import TestClient
-import httpx
+from httpx import AsyncClient, ASGITransport
 import asyncio
 import pytest
 from backend.main import app, log_entries
@@ -40,8 +40,9 @@ def test_cors_headers():
 async def test_unique_ids_concurrent_posts():
     log_entries.clear()
 
-    async with httpx.AsyncClient(app=app, base_url="http://test") as async_client:
-        async def post_entry(i):
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as async_client:
+        async def post_entry(i: int) -> int:
             payload = {"content": f"entry{i}", "tags": ["t"]}
             resp = await async_client.post('/logs', json=payload)
             return resp.json()['id']
