@@ -25,11 +25,29 @@ The project uses React and TailwindCSS for the frontend, and FastAPI with Whispe
    ```sh
    pip install -r backend/requirements.txt
    ```
-3. Create a new branch for your work:
+3. Start the FastAPI server in development mode (runs at `http://localhost:8000`):
+   ```sh
+   uvicorn backend.main:app --reload
+   ```
+   The command is the same on Windows—open PowerShell and run `uvicorn` there.
+   Once running, the interactive API docs are available at `http://localhost:8000/docs`.
+   Leave this process running. In a **separate terminal window** (or a second
+   PowerShell window) you can send requests to the API using `curl` as shown
+   below.
+4. Set up the React frontend:
+   ```sh
+   cd frontend/videologs
+   npm install
+   ```
+5. Launch the React development server and open <http://localhost:3000>:
+   ```sh
+   npm start
+   ```
+6. Create a new branch for your work:
    ```sh
    git checkout -b my-feature
    ```
-4. Make changes and commit:
+7. Make changes and commit:
    ```sh
    git add .
    git commit -m "Describe your changes"
@@ -37,3 +55,29 @@ The project uses React and TailwindCSS for the frontend, and FastAPI with Whispe
    ```
 
 More documentation will be added as the project evolves.
+
+## Basic API Usage
+Once the server is running, you can create logs with a POST request and list them with a GET request.
+The `curl` commands below work in PowerShell as well (curl is an alias for `Invoke-WebRequest`).
+
+Create a log entry:
+```sh
+curl -X POST -H "Content-Type: application/json" \
+    -d '{"content": "First entry", "tags": ["test"]}' \
+    http://localhost:8000/logs
+```
+List log entries:
+```sh
+curl http://localhost:8000/logs
+```
+
+## Testing the Log API
+To verify the API works as expected you can run the included `pytest` suite. Ensure the backend
+dependencies and the `httpx` testing library are installed, then execute:
+
+```sh
+pip install pytest 'httpx<0.28'
+pytest -q
+```
+The tests create a log entry using the API and confirm it is returned when listing logs.
+
