@@ -66,3 +66,13 @@ List log entries:
 curl http://localhost:8000/logs
 ```
 
+## Testing the Log API
+To verify the API works as expected you can run the included `pytest` suite. Ensure the backend
+dependencies and the `httpx` testing library are installed, then execute:
+
+```sh
+pip install pytest httpx
+pytest -q
+```
+The tests create a log entry using the API and confirm it is returned when listing logs.
+
