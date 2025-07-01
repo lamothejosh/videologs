@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import asyncio
 from pydantic import BaseModel
 from typing import List
-from datetime import datetime
+from datetime import datetime, timezone
 
 app = FastAPI()
 
@@ -35,9 +35,13 @@ async def read_root():
 async def create_log(entry: LogCreate):
     global next_id
     async with id_lock:
-        log = LogEntry(id=next_id, content=entry.content, tags=entry.tags, timestamp=datetime.utcnow())
-        next_id += 1
-        log_entries.append(log)
+        log = LogEntry(
+            id=next_id,
+            content=entry.content,
+            tags=entry.tags,
+            timestamp=datetime.now(timezone.utc),
+        )
+
     return log
 
 @app.get("/logs", response_model=List[LogEntry])
