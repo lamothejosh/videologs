@@ -25,3 +25,4 @@ def test_create_and_list_logs():
     logs = r2.json()
     assert len(logs) == 1
     assert logs[0]['content'] == payload['content']
+

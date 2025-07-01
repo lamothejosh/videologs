@@ -29,7 +29,11 @@ The project uses React and TailwindCSS for the frontend, and FastAPI with Whispe
    ```sh
    uvicorn backend.main:app --reload
    ```
+   The command is the same on Windows—open PowerShell and run `uvicorn` there.
    Once running, the interactive API docs are available at `http://localhost:8000/docs`.
+   Leave this process running. In a **separate terminal window** (or a second
+   PowerShell window) you can send requests to the API using `curl` as shown
+   below.
 4. Set up the React frontend:
    ```sh
    cd frontend/videologs
@@ -54,6 +58,8 @@ More documentation will be added as the project evolves.
 
 ## Basic API Usage
 Once the server is running, you can create logs with a POST request and list them with a GET request.
+The `curl` commands below work in PowerShell as well (curl is an alias for `Invoke-WebRequest`).
+
 
 Create a log entry:
 ```sh
@@ -65,4 +71,15 @@ List log entries:
 ```sh
 curl http://localhost:8000/logs
 ```
+
+
+## Testing the Log API
+To verify the API works as expected you can run the included `pytest` suite. Ensure the backend
+dependencies and the `httpx` testing library are installed, then execute:
+
+```sh
+pip install pytest 'httpx<0.28'
+pytest -q
+```
+The tests create a log entry using the API and confirm it is returned when listing logs.
 
