@@ -1,14 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
+import MainComponent from './MainComponent';
 
 function App() {
   return (
     <div className="App">
-        <h1>Video Logs Frontend </h1>
-        <p>Place Holder</p>
-        
+      <MainComponent />
     </div>
-  );    
+  );
 }
 
 export default App;
