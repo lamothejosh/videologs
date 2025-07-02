@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from typing import List
 from datetime import datetime, timezone
 
+
 app = FastAPI()
 
 app.add_middleware(
@@ -31,6 +32,8 @@ next_id = 1
 async def read_root():
     return {"message": "Welcome to your FastAPI site!"}
 
+
+
 @app.post("/logs", response_model=LogEntry)
 async def create_log(entry: LogCreate):
     global next_id
@@ -41,9 +44,14 @@ async def create_log(entry: LogCreate):
             tags=entry.tags,
             timestamp=datetime.now(timezone.utc),
         )
+        log_entries.append(log)
+        next_id += 1
 
     return log
 
 @app.get("/logs", response_model=List[LogEntry])
 async def list_logs():
     return log_entries
+
+
+
