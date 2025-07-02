@@ -3,6 +3,6 @@ import App from './App';
 
 test('renders header text', () => {
   render(<App />);
-  const headerElement = screen.getByText(/Video Logs Frontend/i);
+  const headerElement = screen.getByRole('heading', { name: /notes/i });
   expect(headerElement).toBeInTheDocument();
 });
