@@ -72,6 +72,11 @@ List log entries:
 curl http://localhost:8000/logs
 ```
 
+Upload an audio file (WebM format) which will be transcribed and stored:
+```sh
+curl -F "file=@recording.webm" http://localhost:8000/upload
+```
+
 
 ## Testing the Log API
 After installing the development requirements you can run the included `pytest` suite:
