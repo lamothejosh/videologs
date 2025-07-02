@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 
 
+
 app = FastAPI()
 
 app.add_middleware(
@@ -81,7 +82,6 @@ async def create_log(entry: LogCreate):
         )
         log_entries.append(log)
         next_id += 1
-
     save_logs()
 
     return log
@@ -89,6 +89,7 @@ async def create_log(entry: LogCreate):
 @app.get("/logs", response_model=List[LogEntry])
 async def list_logs():
     return log_entries
+
 
 
 async def transcribe_media(path: Path) -> str:
@@ -108,3 +109,4 @@ async def upload_media(file: UploadFile = File(...)):
     entry = LogCreate(content=transcript, tags=[], media_path=f"/uploads/{filename}")
     log = await create_log(entry)
     return log
+
