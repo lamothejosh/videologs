@@ -43,11 +43,13 @@ The project uses React and TailwindCSS for the frontend, and FastAPI with Whispe
    ```sh
    npm start
    ```
-6. Create a new branch for your work:
+6. With both servers running you can visit <http://localhost:3000> to record a video or audio note. Entries are stored only in memory and will be lost when the server restarts.
+
+7. Create a new branch for your work:
    ```sh
    git checkout -b my-feature
    ```
-7. Make changes and commit:
+8. Make changes and commit:
    ```sh
    git add .
    git commit -m "Describe your changes"
@@ -74,11 +76,11 @@ curl http://localhost:8000/logs
 
 
 ## Testing the Log API
-After installing the development requirements you can run the included `pytest` suite:
+After installing the development requirements you can run the included `pytest` suite. Ensure the repository root is on your `PYTHONPATH` so the `backend` package can be imported:
 
 ```sh
 pip install -r backend/requirements-dev.txt
-pytest -q
+PYTHONPATH=. pytest -q
 ```
 The tests create a log entry using the API and confirm it is returned when listing logs.
 
